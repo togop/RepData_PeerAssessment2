@@ -1,7 +1,6 @@
 # Reproducible Research: Peer Assessment 2
 Todor Gitchev  
-24 Oct 2014  
-
+26 Oct 2014  
 
 
 
@@ -14,6 +13,8 @@ In this analysis we will use the NOAA Storm data to answer the following wuestio
 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
 
 2. Across the United States, which types of events have the greatest economic consequences?
+
+We will show that in first cases the most severe type of event is **tornado** and in the second case are **hail** and **flood**.
 
 # Data Processing
 
@@ -94,7 +95,7 @@ The following chart shows the top 15 events sorted by impact on humam health.
 
 
 ```r
-data1 <- aggData[with(aggData, order(-ECO_HARM)),]
+data1 <- aggData[with(aggData, order(-POP_HARM)),]
 
 ggplot(data1[1:15,], aes(x = reorder(EVTYPE, POP_HARM), y = POP_HARM)) + geom_bar(stat = "identity") + coord_flip() + 
 ylab("Fatalities and Injuries") +
@@ -104,6 +105,7 @@ ggtitle("Population impact by Weather Type")
 
 ![plot of chunk unnamed-chunk-2](./repdata_PA2_files/figure-html/unnamed-chunk-2.png) 
 
+This shows that the most sever events in this case is the **tornado**.
 
 To address the second question, we will use the summarized data for **property** and **crop** damage as representation of the economic impact.
 
@@ -111,9 +113,9 @@ The following chart shows the top 15 events sorted by ecomonic impact.
 
 
 ```r
-data2 <- aggData[with(aggData, order(-POP_HARM)),]
+data2 <- aggData[with(aggData, order(-ECO_HARM)),]
 
-ggplot(data2[1:15,], aes(x = reorder(EVTYPE, POP_HARM), y = POP_HARM)) + geom_bar(stat = "identity") + coord_flip() + 
+ggplot(data2[1:15,], aes(x = reorder(EVTYPE, ECO_HARM), y = ECO_HARM)) + geom_bar(stat = "identity") + coord_flip() + 
 ylab("Property and Crop Damage Expense") +
 xlab("Weather Type") +
 ggtitle("Economic impact by Weather Type")
@@ -121,3 +123,4 @@ ggtitle("Economic impact by Weather Type")
 
 ![plot of chunk unnamed-chunk-3](./repdata_PA2_files/figure-html/unnamed-chunk-3.png) 
 
+This shows that the most sever events in this case is the **hail** followed by **flood** type of events.
